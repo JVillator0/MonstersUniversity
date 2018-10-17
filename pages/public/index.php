@@ -183,9 +183,9 @@
     
     <div class="bg-dark text-white">
       <br>
-        Sistema de inscripcion de postulantes a Monsters University
-        <strong> Este es un proyecto estudiantil, no tiene nada que ver con Monsters Inc </strong>
-      <br>
+        <p class="text-center">Sistema de inscripcion de postulantes a Monsters University</p>
+        <p class="text-center"><strong> Este es un proyecto estudiantil, no tiene ningúna relación con Monsters Inc </strong>
+      <br><br>
     </div>
 
   <!-- 
@@ -332,7 +332,7 @@
                     <input type="password" class="form-control" id="lg_clave" name="lg_clave">
                   </div>
                   <a class="btn btn-success font-white btn-block" onclick="login();"> Iniciar sesión <i class="fa fa-sign-in-alt"></i></a>
-                  <a href="#mdl_recuperar1" data-toggle="modal" data-dismiss="modal" class="btn btn-dark btn-sm btn-block">¿Olvido su clave?</a>
+                  <a href="#mdl_restaurar_1" data-toggle="modal" data-dismiss="modal" class="btn btn-dark btn-sm btn-block">¿Olvido su clave?</a>
                 </form>  
               </div>
             </div>
@@ -370,80 +370,80 @@
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="mdl_recuperar1" data-backdrop="static" data-keyboard="true">
+  <div class="modal fade" id="mdl_restaurar_1" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Recuperación de clave</h5>
+          <h5 class="modal-title">Restablecer de clave</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form>
+          <form id="frm_correo" name="frm_correo">
             <div class="form-group">
-              <label>Escriba su correo electrónico</label>
-              <input type="text" class="form-control">
+              <label>Escriba su correo eletrónico</label>
+              <input type="text" class="form-control" id="r_correo" name="r_correo">
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <a href="#mdl_recuperar2" data-toggle="modal" data-dismiss="modal" class="btn btn-success btn-sm">Siguiente <i class="fa fa-chevron-right"></i></a>
+          <a onclick="restaurar_enviar_email();" class="btn btn-success btn-sm font-white">Siguiente <i class="fa fa-chevron-right"></i></a>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="mdl_recuperar2" data-backdrop="static" data-keyboard="true">
+  <div class="modal fade" id="mdl_restaurar_2" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Recuperación de clave</h5>
+          <h5 class="modal-title">Restablecer de clave</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form>
+          <form id="frm_codigo_verificar" name="frm_codigo_verificar">
             <div class="form-group">
-              <p>Se le ha enviado a su correo electrónico un codigo de verificación.</p>
+              <p>Se le ha enviado a su correo electrónico un código de verificación.</p>
               <label>Codigo</label>
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" id="codigo_verificar" name="codigo_verificar">
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <a href="#mdl_recuperar3" data-toggle="modal" data-dismiss="modal" class="btn btn-success btn-sm">Siguiente <i class="fa fa-chevron-right"></i></a>
+          <a onclick="verificar_codigo();" class="btn btn-success btn-sm font-white">Siguiente <i class="fa fa-chevron-right"></i></a>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="mdl_recuperar3" data-backdrop="static" data-keyboard="true">
+  <div class="modal fade" id="mdl_restaurar_3" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Recuperación de clave</h5>
+          <h5 class="modal-title">Restablecer de clave</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form>
+          <form id="frm_restaurar" name="frm_restaurar">
             <div class="form-group">
               <label>Nueva clave</label>
-              <input type="password" class="form-control">
+              <input type="password"  class="form-control" id="r_clave" name="r_clave">
             </div>
             <div class="form-group">
               <label>Confirmar nueva clave</label>
-              <input type="password" class="form-control">
+              <input type="password"  class="form-control" id="r_confirmar" name="r_confirmar">
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <a href="#mdl_acceso" data-toggle="modal" data-dismiss="modal" class="btn btn-success btn-sm">Aceptar <i class="fa fa-check"></i></a>
+          <a onclick="restaurar();" class="btn btn-success btn-sm font-white">Aceptar <i class="fa fa-check"></i></a>
         </div>
       </div>
     </div>
@@ -459,6 +459,12 @@
   <script src="../../libs/site_public/magnific-popup/jquery.magnific-popup.min.js"></script>
   <script src="../../libs/site_public/bootstrap-date-picker/v4/js/core.min.js"></script>
   <script src="../../libs/site_public/bootstrap-date-picker/v4/js/gijgo.min.js"></script>
+
+  <!-- Moment js JavaScript -->
+  <script src="../../libs/moment/js/moment.min.js"></script>
+
+  <!-- jQuery Mask JavaScript -->
+  <script src="../../libs/jquery-mask/jquery.mask.min.js"></script>
 
   <!-- Custom scripts for this template -->
   <script src="../../resource/js/creative.js"></script>

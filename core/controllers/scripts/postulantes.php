@@ -204,6 +204,72 @@ if(isset($_GET["accion"])){
             //la des-setea
             unset($_SESSION["info_postulante"]);
         break;
+
+        case "restaurar_enviar_email":
+            //validamos los datos
+            $cls_postulantes->validateForm($_POST);
+            $cls_postulantes->validateXSS($_POST);
+            if($cls_postulantes->setCorreo($_POST["r_correo"])){
+                //obtenemos el registro con el alias ingresado
+                $resultado = $cls_postulantes->login();
+                //vemos si devolvio registros
+                if(count($resultado) > 0){
+                    //para acceder mas facilmente al registro
+                    $resultado = $resultado[0];
+                    //seteamos la id del postulante que restaurara la clave
+                    $retornar["id"] = $resultado["Id_Postulante"];
+                    //mandamos a llamar el script para los correos
+                    require_once("../../helpers/php/email.class.php");
+                    $cls_email = new Clss_Email;
+                    $cls_email->setSendAddress($resultado["Correo"]);
+                    $cls_email->setSubject("Restaurar clave");
+                    $cls_email->setIsHTML(true);
+                    //seteamos el codigo que enviaremos
+                    $retornar["codigo"] = $cls_email->generateRandomString(8);
+                    //sera un email html asi que obtenemos el formato
+                    $bodyDelEmail = file_get_contents("../../../resource/emails/restaurar.html");
+                    //reemplazamos los nombres
+                    $bodyDelEmail = str_replace("###NOMBRES###", $resultado["Nombres"] . " " . $resultado["Apellidos"], $bodyDelEmail);
+                    //ponemos el codigo en el html que enviaremos
+                    $bodyDelEmail = str_replace("###CODIGO###", $retornar["codigo"], $bodyDelEmail);
+                    //seteamos el body del email
+                    $cls_email->setBody($bodyDelEmail);
+                    //enviamos el correo
+                    $retornar["resultado"] = $cls_email->SendEmail();
+                }else{
+                    $retornar["mensaje"] = "No se encontro ningun usuario.";
+                    $retornar["resultado"] = false;
+                }
+            }else{
+                $retornar["mensaje"] = "Correo no valido.";
+                $retornar["resultado"] = false;
+            }
+        break;
+
+        case "restaurar":
+            $cls_postulantes->validateForm($_POST);
+            $cls_postulantes->validateXSS($_POST);
+            if($_POST["r_clave"] == $_POST["r_confirmar"]){
+                //la clave nueva cumple con los parametros?
+                if($cls_postulantes->setClave($_POST["r_clave"])){
+                    //especificamos la ID del usuario
+                    $cls_postulantes->setId_postulante($_POST["id"]);
+                    //abrimos la conexion nuevamente
+                    $cls_postulantes->abrirConexion();
+                    //ejecutamos la accion
+                    $retornar["resultado"] = $cls_postulantes->editar_clave();
+                }else{
+                    $retornar["mensaje"] = "Clave no valida.
+                    \nDebe contener minomo 8 caracteres.
+                    \nDebe contener mayusculas y minusculas.
+                    \nDebe contener almenos un caracter especial.";
+                    $retornar["resultado"] = false;
+                }
+            }else{
+                $retornar["mensaje"] = "Las claves no son iguales.";
+                $retornar["resultado"] = false;
+            }
+        break;
         
         default:
             

@@ -40,12 +40,16 @@ if(isset($_GET["accion"])){
         
         case "seleccionar_online":
             session_start();
-            //se setea la id del postulante del cual pediremos informacion, es decir, el que este en linea
-            if($cls_detalles->setId_postulante($_SESSION["info_postulante"][0]["Id_Postulante"])){   
-                $retornar["registros"] = $cls_detalles->seleccionar_especifico();
-            }else{
-                $retornar["mensaje"] = "Id postulante no valida.";
-                $retornar["resultado"] = false;
+            //verifica si esta seteado el info_usuario en SESSION
+            $retornar["resultado"] = isset($_SESSION["info_postulante"]);
+            if($retornar["resultado"]){
+                //se setea la id del postulante del cual pediremos informacion, es decir, el que este en linea
+                if($cls_detalles->setId_postulante($_SESSION["info_postulante"][0]["Id_Postulante"])){   
+                    $retornar["registros"] = $cls_detalles->seleccionar_especifico();
+                }else{
+                    $retornar["mensaje"] = "Id postulante no valida.";
+                    $retornar["resultado"] = false;
+                }
             }
         break;
         
@@ -258,7 +262,7 @@ if(isset($_GET["accion"])){
                                                     $retornar["resultado"] = false;
                                                 }
                                             }else{
-                                                $retornar["mensaje"] = "Debe rellenar almenos un teléfono para realizar la operación.";
+                                                $retornar["mensaje"] = "Debe ingresar almenos un teléfono para realizar la operación.";
                                                 $retornar["resultado"] = false;
                                             }
                                         }else{

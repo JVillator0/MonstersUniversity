@@ -1,17 +1,22 @@
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
-    datepickers("fecha_nacimiento", null);
+    min = getFechaAtras(100, "year", "DD/MM/YYYY");
+    max = getFechaAtras(16, "year", "DD/MM/YYYY");
+    datepickers("fecha_nacimiento", min, max, max);
 });
 
-  
-function datepickers(id, valor){
+function getFechaAtras(num, tipo, formato) {
+    return moment().subtract(num, tipo).format(formato);
+}
+
+function datepickers(id, min, max, valor){
     $("#"+id).datepicker({
-        uiLibrary: 'bootstrap4',
-        locale: 'es-es',
-        format: 'dd/mm/yyyy',
+        uiLibrary: "bootstrap4",
+        locale: "es-es",
+        format: "dd/mm/yyyy",
         value: valor,
-        //maxDate: today,
-        //minDate: today
+        maxDate: max,
+        minDate: min
     });
 }
 

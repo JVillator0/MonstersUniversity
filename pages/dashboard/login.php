@@ -41,88 +41,88 @@
       </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" data-backdrop="static" data-keyboard="true" id="mdl_restaurar_1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <a class="close" data-dismiss="modal">&times;</a>
-            <h4 class="modal-title"><i class="fa fa-lock"></i> Restaurar clave</h4>
-          </div>
-          <div class="modal-body">
-            <form id="frm_alias" name="frm_alias">
-              <div class="form-group">
-                <label>Escriba su alias</label>
-                <input type="text" class="form-control" id="r_alias" name="r_alias">
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <a onclick="restaurar_enviar_email();" class="btn btn-success">Siguiente <i class="fa fa-chevron-right"></i></a>
-          </div>
+  <!-- Modal -->
+  <div class="modal fade" data-backdrop="static" data-keyboard="true" id="mdl_restaurar_1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">&times;</a>
+          <h4 class="modal-title"><i class="fa fa-lock"></i> Restaurar clave</h4>
         </div>
-        <!-- /.modal-content -->
+        <div class="modal-body">
+          <form id="frm_alias" name="frm_alias">
+            <div class="form-group">
+              <label>Escriba su alias</label>
+              <input type="text" class="form-control" id="r_alias" name="r_alias">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <a onclick="restaurar_enviar_email();" class="btn btn-success">Siguiente <i class="fa fa-chevron-right"></i></a>
+        </div>
       </div>
-      <!-- /.modal-dialog -->
+      <!-- /.modal-content -->
     </div>
-    <!-- /.modal -->
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
 
-    <!-- Modal -->
-    <div class="modal fade" data-backdrop="static" data-keyboard="true" id="mdl_restaurar_2">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <a class="close" data-dismiss="modal">&times;</a>
-            <h4 class="modal-title"><i class="fa fa-lock"></i> Restaurar clave</h4>
-          </div>
-          <div class="modal-body">
-            <form id="frm_codigo_verificar" name="frm_codigo_verificar">
-              <div class="form-group">
-                <p>Se le ha enviado a su correo electrónico un código de verificación.</p>
-                <label>Codigo</label>
-                <input type="text" class="form-control" id="codigo_verificar" name="codigo_verificar">
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <a onclick="verificar_codigo();" class="btn btn-success">Siguiente <i class="fa fa-chevron-right"></i></a>
-          </div>
+  <!-- Modal -->
+  <div class="modal fade" data-backdrop="static" data-keyboard="true" id="mdl_restaurar_2">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">&times;</a>
+          <h4 class="modal-title"><i class="fa fa-lock"></i> Restaurar clave</h4>
         </div>
-        <!-- /.modal-content -->
+        <div class="modal-body">
+          <form id="frm_codigo_verificar" name="frm_codigo_verificar">
+            <div class="form-group">
+              <p>Se le ha enviado a su correo electrónico un código de verificación.</p>
+              <label>Codigo</label>
+              <input type="text" class="form-control" id="codigo_verificar" name="codigo_verificar">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <a onclick="verificar_codigo();" class="btn btn-success">Siguiente <i class="fa fa-chevron-right"></i></a>
+        </div>
       </div>
-      <!-- /.modal-dialog -->
+      <!-- /.modal-content -->
     </div>
-    <!-- /.modal -->
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
 
-    <!-- Modal -->
-    <div class="modal fade" data-backdrop="static" data-keyboard="true" id="mdl_restaurar_3">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <a class="close" data-dismiss="modal">&times;</a>
-            <h4 class="modal-title"><i class="fa fa-lock"></i> Restaurar clave</h4>
-          </div>
-          <div class="modal-body">
-            <form id="frm_restaurar" name="frm_restaurar">
-              <div class="form-group">
-                <label>Nueva clave</label>
-                <input type="password"  class="form-control" id="r_clave" name="r_clave">
-              </div>
-              <div class="form-group">
-                <label>Confirmar nueva clave</label>
-                <input type="password"  class="form-control" id="r_confirmar" name="r_confirmar">
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <a onclick="restaurar();" class="btn btn-success"><i class="fa fa-check"></i> Aceptar</a>
-          </div>
+  <!-- Modal -->
+  <div class="modal fade" data-backdrop="static" data-keyboard="true" id="mdl_restaurar_3">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">&times;</a>
+          <h4 class="modal-title"><i class="fa fa-lock"></i> Restaurar clave</h4>
         </div>
-        <!-- /.modal-content -->
+        <div class="modal-body">
+          <form id="frm_restaurar" name="frm_restaurar">
+            <div class="form-group">
+              <label>Nueva clave</label>
+              <input type="password"  class="form-control" id="r_clave" name="r_clave">
+            </div>
+            <div class="form-group">
+              <label>Confirmar nueva clave</label>
+              <input type="password"  class="form-control" id="r_confirmar" name="r_confirmar">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <a onclick="restaurar();" class="btn btn-success"><i class="fa fa-check"></i> Aceptar</a>
+        </div>
       </div>
-      <!-- /.modal-dialog -->
+      <!-- /.modal-content -->
     </div>
-    <!-- /.modal -->
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
 
 <?php
   $libs_js = array("dependencias"); 

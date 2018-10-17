@@ -52,17 +52,17 @@ class cls_validator{
 
 	//verifica el valor utilizando una expresion regular que debe concordar con el valor enviado
 	public function validateTelephone($value){
-		return true && strlen($value) > 0;
+		return preg_match("/^\d{4}-\d{4}$/", $value);
 	}
 
 	//verifica el valor utilizando una expresion regular que debe concordar con el valor enviado
 	public function validateDUI($value){
-		return true && strlen($value) > 0;
+		return preg_match("/^\d{8}-\d{1}$/", $value);
 	}
 
 	//verifica el valor utilizando una expresion regular que debe concordar con el valor enviado
 	public function validateNIT($value){
-		return true && strlen($value) > 0;
+		return preg_match("/^\d{4}-\d{6}-\d{3}-\d{1}$/", $value);
 	}
 
 	//verifica el valor utilizando una expresion regular que debe concordar con el valor enviado
