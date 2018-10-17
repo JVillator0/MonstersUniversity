@@ -182,7 +182,10 @@
     </section>
     
     <div class="bg-dark text-white">
-      <br><br>
+      <br>
+        Sistema de inscripcion de postulantes a Monsters University
+        <strong> Este es un proyecto estudiantil, no tiene nada que ver con Monsters Inc </strong>
+      <br>
     </div>
 
   <!-- 

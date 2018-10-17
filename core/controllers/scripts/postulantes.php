@@ -18,6 +18,7 @@ if(isset($_GET["accion"])){
         case "insertar":
             //validamos los datos
             $cls_postulantes->validateForm($_POST);
+            $cls_postulantes->validateXSS($_POST);
             if($cls_postulantes->setNombres($_POST["nombres"])){   
                 if($cls_postulantes->setApellidos($_POST["apellidos"])){
                     if($cls_postulantes->setCorreo($_POST["correo"])){
@@ -56,6 +57,7 @@ if(isset($_GET["accion"])){
             session_start();
             //validamos los datos
             $cls_postulantes->validateForm($_POST);
+            $cls_postulantes->validateXSS($_POST);
             if($cls_postulantes->setId_Postulante($_SESSION["info_postulante"][0]["Id_Postulante"])){
                 $cls_postulantes->setEstado(2);
                 //ejecutamos la accion
@@ -70,6 +72,7 @@ if(isset($_GET["accion"])){
             session_start();
             //validamos los datos
             $cls_postulantes->validateForm($_POST);
+            $cls_postulantes->validateXSS($_POST);
             if($cls_postulantes->setId_Postulante($_SESSION["info_postulante"][0]["Id_Postulante"])){
                 $cls_postulantes->setEstado(3);
                 //ejecutamos la accion
@@ -84,6 +87,7 @@ if(isset($_GET["accion"])){
             session_start();
             //validamos los datos
             $cls_postulantes->validateForm($_POST);
+            $cls_postulantes->validateXSS($_POST);
             if($cls_postulantes->setId_Postulante($_SESSION["info_postulante"][0]["Id_Postulante"])){
                 if($cls_postulantes->setNombres($_POST["e_nombres"])){
                     if($cls_postulantes->setApellidos($_POST["e_apellidos"])){
@@ -118,6 +122,7 @@ if(isset($_GET["accion"])){
             session_start();
             //validamos los datos
             $cls_postulantes->validateForm($_POST);
+            $cls_postulantes->validateXSS($_POST);
             $cls_postulantes->setCorreo($_SESSION["info_postulante"][0]["Correo"]);
             $retornar["registro"] = $cls_postulantes->login();
             //verificamos que la clave actual este correcta
@@ -153,6 +158,7 @@ if(isset($_GET["accion"])){
         case "login":
             //validamos los datos
             $cls_postulantes->validateForm($_POST);
+            $cls_postulantes->validateXSS($_POST);
             if($cls_postulantes->setCorreo($_POST["lg_correo"])){
                 //obtenemos el registro con el correo ingresado
                 $retornar["registro"] = $cls_postulantes->login();

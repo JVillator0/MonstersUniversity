@@ -18,6 +18,7 @@ if(isset($_GET["accion"])){
         case "insertar":
             //validamos los datos
             $cls_carreras->validateForm($_POST);
+            $cls_carreras->validateXSS($_POST);
             if($cls_carreras->setCarrera($_POST["carrera"])){   
                 if($cls_carreras->setDescripcion($_POST["descripcion"])){   
                     $cls_carreras->setEstado(1);
@@ -36,6 +37,7 @@ if(isset($_GET["accion"])){
         case "editar":
             //validamos los datos
             $cls_carreras->validateForm($_POST);
+            $cls_carreras->validateXSS($_POST);
             if($cls_carreras->setId_carrera($_POST["id_carrera"])){
                 if($cls_carreras->setCarrera($_POST["e_carrera"])){
                     if($cls_carreras->setDescripcion($_POST["e_descripcion"])){   
@@ -58,6 +60,7 @@ if(isset($_GET["accion"])){
         case "eliminar":
             //validamos los datos
             $cls_carreras->validateForm($_POST);
+            $cls_carreras->validateXSS($_POST);
             if($cls_carreras->setId_carrera($_POST["id_carrera"])){
                 $cls_carreras->setEstado(0);
                 //ejecutamos la accion

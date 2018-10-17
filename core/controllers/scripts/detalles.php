@@ -71,6 +71,7 @@ if(isset($_GET["accion"])){
                 //comenzamos con el insert en la tabla de detalles
                 //validamos los campos
                 $cls_detalles->validateForm($_POST);
+                $cls_detalles->validateXSS($_POST);
                 if($cls_detalles->setId_postulante($_SESSION["info_postulante"][0]["Id_Postulante"])){
                     if($cls_detalles->setId_institucion_procedencia($_POST["cmb_instituciones"])){
                         if($cls_detalles->setId_especialidad($_POST["cmb_especialidades"])){
@@ -221,6 +222,7 @@ if(isset($_GET["accion"])){
                 //comenzamos con el insert en la tabla de detalles
                 //validamos los campos
                 $cls_detalles->validateForm($_POST);
+                $cls_detalles->validateXSS($_POST);
                 if($cls_detalles->setId_detalle_postulante($_POST["id_detalle_postulante"])){
                     if($cls_detalles->setId_postulante($_SESSION["info_postulante"][0]["Id_Postulante"])){
                         if($cls_detalles->setId_institucion_procedencia($_POST["cmb_instituciones"])){
@@ -293,6 +295,7 @@ if(isset($_GET["accion"])){
         case "eliminar":
             //validamos los datos
             $cls_detalles->validateForm($_POST);
+            $cls_detalles->validateXSS($_POST);
             if($cls_detalles->setId_detalle_postulante($_POST["id_detalle_postulante"])){   
                 $cls_detalles->setEstado(0);
                 //ejecutamos la accion

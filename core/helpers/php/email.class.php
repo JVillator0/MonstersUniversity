@@ -21,9 +21,9 @@ class Clss_Email
         $this->Port = 587;
         $this->SMTPSecure = "tls";
         $this->SMTPAuth = true;
-        $this->Username = "SysMinerva@gmail.com";
-        $this->Password = "SysMinerva2k18";
-        $this->NameEmail = "Sys Minerva";
+        $this->Username = "SysMonstersUniversity@gmail.com";
+        $this->Password = "Sys123456MU";
+        $this->NameEmail = "Sys Monsters University";
     }
     
     private $SMTPDebug = null;
