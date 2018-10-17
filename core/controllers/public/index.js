@@ -12,6 +12,30 @@ $(document).ready(function () {
     $("#nit").mask("0000-000000-000-0");
 });
 
+function div_catch(caso){
+    console.log(caso);
+    $("#catch_registrarse").html('');
+    $("#catch_restablecer").html('');
+    switch (caso) {
+        case "registrarse":
+            $("#catch_registrarse").html('\
+                <div class="g-recaptcha" data-sitekey="6LdP8WYUAAAAAOe1rptxGjJncC41dJQyViDSseiJ"></div>\
+                <script src="https://www.google.com/recaptcha/api.js?hl=es"></script>\
+            ');
+            break;
+
+        case "restablecer":
+            $("#catch_restablecer").html('\
+                <div class="g-recaptcha" data-sitekey="6LdP8WYUAAAAAOe1rptxGjJncC41dJQyViDSseiJ"></div>\
+                <script src="https://www.google.com/recaptcha/api.js?hl=es"></script>\
+            ');
+            break;
+    
+        default:
+            break;
+    }
+}
+
 //metodo que carga las carreras de la base de datos, los pone en el cmb de postulacion
 //y tambien carga las miasmas carreras en el public para que lo vean todos
 function seleccionar_carreras(){
@@ -89,32 +113,37 @@ function seleccionar_instituciones(){
 
 //metodo apra registrar un postulante
 function registrar_postulante(){
-    //obtengo los datos del formulario
-    var datos = $("#frm_registrar").serialize();
-    $.ajax({
-        type: "POST",
-        data: datos,
-        url: "../../core/controllers/scripts/postulantes.php?accion=insertar",
-        success: function (respuesta) {
-            //si todo salio bien, success
-            if(respuesta.resultado){
-                swal({title: "Aviso!", text: "Operación realizada con éxito", icon: "success", button: "Aceptar", closeOnClickOutside: false});
-                $('#frm_registrar')[0].reset();
-                //que se auto seleccione la tab de login
-            }else{
-                //si el mensaje ES DIFERENTE de indefinido o nulo, mostrara el mensaje que viene desde el servidor
-                //si el mensaje SI ES nulo o indefinido, dira que ocurrio un error, esto sucede cuando las consultas fallan
-                if(respuesta.mensaje != undefined || respuesta.mensaje != null){
-                    swal({ title: "Información!", text: respuesta.mensaje, icon: "info", button: "Aceptar", closeOnClickOutside: false });
+    var response = grecaptcha.getResponse();
+    if (response.length == 0) {
+        swal({ title: "Información!", text: "Por favor verifique el captcha", icon: "info", button: "Aceptar", closeOnClickOutside: false });
+    } else {
+        //obtengo los datos del formulario
+        var datos = $("#frm_registrar").serialize();
+        $.ajax({
+            type: "POST",
+            data: datos,
+            url: "../../core/controllers/scripts/postulantes.php?accion=insertar",
+            success: function (respuesta) {
+                //si todo salio bien, success
+                if(respuesta.resultado){
+                    swal({title: "Aviso!", text: "Operación realizada con éxito", icon: "success", button: "Aceptar", closeOnClickOutside: false});
+                    $('#frm_registrar')[0].reset();
+                    $(".nav-tabs a[href=\"#nav-home\"]").tab("show");
                 }else{
-                    swal({ title: "Error!", text: "Ocurrió un error al realizar la operación.", icon: "error", button: "Aceptar", closeOnClickOutside: false });
+                    //si el mensaje ES DIFERENTE de indefinido o nulo, mostrara el mensaje que viene desde el servidor
+                    //si el mensaje SI ES nulo o indefinido, dira que ocurrio un error, esto sucede cuando las consultas fallan
+                    if(respuesta.mensaje != undefined || respuesta.mensaje != null){
+                        swal({ title: "Información!", text: respuesta.mensaje, icon: "info", button: "Aceptar", closeOnClickOutside: false });
+                    }else{
+                        swal({ title: "Error!", text: "Ocurrió un error al realizar la operación.", icon: "error", button: "Aceptar", closeOnClickOutside: false });
+                    }
                 }
+            }, error: function(respuesta){
+                console.log("Error:");
+                console.log(respuesta);
             }
-        }, error: function(respuesta){
-            console.log("Error:");
-            console.log(respuesta);
-        }
-    });
+        });
+    }
 }
 
 //metodo que llena los inputs de los detalles por postulante
@@ -341,26 +370,31 @@ var CODIGO_RESTAURAR = "";
 var ID = "";
 
 function restaurar_enviar_email(){
-    var datos = $("#frm_correo").serialize();
-    $.ajax({
-        type: "POST",
-        data: datos,
-        url: "../../core/controllers/scripts/postulantes.php?accion=restaurar_enviar_email",
-        success: function (respuesta) {
-            if(respuesta.resultado){
-                CODIGO_RESTAURAR = respuesta.codigo;
-                ID = respuesta.id;
-                $("#frm_correo")[0].reset();
-                $("#mdl_restaurar_1").modal("hide");
-                $("#mdl_restaurar_2").modal("show");
-            }else{
-                swal({ title: "Información!", text: respuesta.mensaje, icon: "info", button: "Aceptar", closeOnClickOutside: false });
+    var response = grecaptcha.getResponse();
+    if (response.length == 0) {
+        swal({ title: "Información!", text: "Por favor verifique el captcha", icon: "info", button: "Aceptar", closeOnClickOutside: false });
+    } else {
+        var datos = $("#frm_correo").serialize();
+        $.ajax({
+            type: "POST",
+            data: datos,
+            url: "../../core/controllers/scripts/postulantes.php?accion=restaurar_enviar_email",
+            success: function (respuesta) {
+                if(respuesta.resultado){
+                    CODIGO_RESTAURAR = respuesta.codigo;
+                    ID = respuesta.id;
+                    $("#frm_correo")[0].reset();
+                    $("#mdl_restaurar_1").modal("hide");
+                    $("#mdl_restaurar_2").modal("show");
+                }else{
+                    swal({ title: "Información!", text: respuesta.mensaje, icon: "info", button: "Aceptar", closeOnClickOutside: false });
+                }
+            }, error: function(respuesta){
+                console.log("Error:");
+                console.log(respuesta);
             }
-        }, error: function(respuesta){
-            console.log("Error:");
-            console.log(respuesta);
-        }
-    });
+        });
+    }
 }
 
 function verificar_codigo(){

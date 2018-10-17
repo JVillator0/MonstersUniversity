@@ -316,7 +316,7 @@
           <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <a class="col-xs-12 col-md-6 text-center nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home">Iniciar sesión</a>
-              <a class="col-xs-12 col-md-6 text-center nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile">Registrarse</a>
+              <a onclick="div_catch('registrarse');" class="col-xs-12 col-md-6 text-center nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile">Registrarse</a>
             </div>
           </nav>
           <div class="tab-content">
@@ -332,7 +332,9 @@
                     <input type="password" class="form-control" id="lg_clave" name="lg_clave">
                   </div>
                   <a class="btn btn-success font-white btn-block" onclick="login();"> Iniciar sesión <i class="fa fa-sign-in-alt"></i></a>
-                  <a href="#mdl_restaurar_1" data-toggle="modal" data-dismiss="modal" class="btn btn-dark btn-sm btn-block">¿Olvido su clave?</a>
+                  <a href="#mdl_restaurar_1"  onclick="div_catch('restablecer');" data-toggle="modal" data-dismiss="modal" class="btn btn-dark btn-sm btn-block">
+                    ¿Olvido su clave?
+                  </a>
                 </form>  
               </div>
             </div>
@@ -359,6 +361,9 @@
                     <label>Confirmar clave</label>
                     <input type="password" class="form-control" id="confirmar" name="confirmar">
                   </div>
+                  <div class="form-group" id="catch_registrarse">
+
+                  </div>
                   <a class="btn btn-success font-white btn-block" onclick="registrar_postulante();"> Registrarse <i class="fa fa-check"></i></a>
                 </form>  
               </div>
@@ -384,6 +389,9 @@
             <div class="form-group">
               <label>Escriba su correo eletrónico</label>
               <input type="text" class="form-control" id="r_correo" name="r_correo">
+            </div>
+            <div class="form-group" id="catch_restablecer">
+
             </div>
           </form>
         </div>
@@ -472,5 +480,7 @@
   <script src="../../core/controllers/public/main.js"></script>
   <script src="../../core/controllers/public/index.js"></script>
   
+  <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
+
   </body>
 </html>
