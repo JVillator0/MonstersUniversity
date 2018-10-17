@@ -1,0 +1,92 @@
+# ----------------------------------------------------------------------
+# | Mensajes de error personalizados                                   |
+# ----------------------------------------------------------------------
+
+ErrorDocument 500 http://localhost/MonstersUniversity/resource/errors/500.php
+ErrorDocument 404 http://localhost/MonstersUniversity/resource/errors/404.php
+ErrorDocument 403 http://localhost/MonstersUniversity/resource/errors/403.php
+
+# ----------------------------------------------------------------------
+# | Previniendo errores                                                |
+# ----------------------------------------------------------------------
+
+# Deshabilitar la coincidencia de patrones en función de los nombres de archivo.
+#
+# Esta configuración evita que Apache devuelva un error 404 como resultado
+# de una reescritura cuando el directorio con el mismo nombre no existe.
+# https://httpd.apache.org/docs/current/content-negotiation.html#multiviews
+
+Options -MultiViews
+
+# ----------------------------------------------------------------------
+# | Codificacion de caracteres                                         |
+# ----------------------------------------------------------------------
+
+# Sirve todos los recursos etiquetados como 'text/html' o 'text/plain'
+# con el tipo de medio del parámetro 'charset' establecido en UTF-8.
+#
+# https://httpd.apache.org/docs/current/mod/core.html#adddefaultcharset
+
+AddDefaultCharset utf-8
+
+# ----------------------------------------------------------------------
+# | Reescribiendo                                                      |
+# ----------------------------------------------------------------------
+
+# (1) encender el motor de reescritura (esto es necesario para
+#     las directivas 'RewriteRule').
+#
+#     https://httpd.apache.org/docs/current/mod/mod_rewrite.html#RewriteEngine
+#
+# (2) Habilitar la opción 'FollowSymLinks' si aún no lo está.
+#
+#     https://httpd.apache.org/docs/current/mod/core.html#options
+#
+# (3) Si su servidor web no permite la opción 'FollowSymlinks',
+#     es necesario comentarlo o eliminarlo, y luego descomentar
+#     la línea 'Options + SymLinksIfOwnerMatch' (4), pero ha que 
+#     tener en cuenta el impacto en el rendimiento.
+#
+#     https://httpd.apache.org/docs/current/misc/perf-tuning.html#symlinks
+#
+# (4) Algunos servicios de alojamiento en la nube requeriren establecer 'RewriteBase'.
+#
+#     http://www.rackspace.com/knowledge_center/frequently-asked-question/why-is-modrewrite-not-working-on-my-site
+#     https://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewritebase
+#
+# (5) Dependiendo de cómo esté configurado el servidor, es posible que 
+#     también sea necesario usa la directiva 'RewriteOptions' para habilitar 
+#     algunas opciones para el motor de reescritura.
+#
+#     https://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewriteoptions
+
+<IfModule mod_rewrite.c>
+
+    # (1)
+    RewriteEngine On
+
+    # (2)
+    Options +FollowSymlinks
+
+    # (3)
+    # Options +SymLinksIfOwnerMatch
+
+    # (4)
+    # RewriteBase /
+
+    # (5)
+    # RewriteOptions <options>
+
+</IfModule>
+
+# ----------------------------------------------------------------------
+# | Acceso a archivos                                                  |
+# ----------------------------------------------------------------------
+
+#
+# Bloquear el acceso a los directorios sin un documento predeterminado.
+#
+
+<IfModule mod_autoindex.c>
+    Options All -Indexes
+</IfModule>
