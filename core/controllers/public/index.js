@@ -1,19 +1,15 @@
-/*
-    TIP IMPORTANTE:
-    los inputs tienen id's y name's, los id's es para que los utilice el cliente, en css y javascript, 
-    el name es para el servidor, es decir: $_POST["name"], no importa si tiene diferente nombre, pero es recomendable que si
-    por el hecho de hacer mas facil la lectura y la utilizacion
-*/
-
 $(document).ready(function () {
-    //esperamos 100 milisegundos a ejecutar estos metodos
-    setTimeout(function(){
-        online();
-        seleccionar_carreras();
-        seleccionar_especialidades();
-        seleccionar_instituciones();
-        cargar_solicitud();
-    }, 100);
+    //metodos para obtener los datos que utiliza la pagina
+    online();
+    seleccionar_carreras();
+    seleccionar_especialidades();
+    seleccionar_instituciones();
+    cargar_solicitud();
+    //aplicando mascaras a los inputs que las necesitan
+    $("#tel_movil").mask("0000-0000");
+    $("#tel_fijo").mask("0000-0000");
+    $("#dui").mask("00000000-0");
+    $("#nit").mask("0000-000000-000-0");
 });
 
 //metodo que carga las carreras de la base de datos, los pone en el cmb de postulacion
@@ -130,81 +126,85 @@ function cargar_solicitud(){
         data: null, 
         url: "../../core/controllers/scripts/detalles.php?accion=seleccionar_online", 
         success: function (respuesta) {
-            if(respuesta.registros.length > 0){
+            if(respuesta.resultado){
+                if(respuesta.registros.length > 0){
 
-                //llenando los inputs, siempre y cuando sea != null lo que setearemos
-                var registro = respuesta.registros[0];
-                if(registro.Id_Detalle_Postulante != null){
-                    $("#id_detalle_postulante").val(registro.Id_Carrera);
-                }
-                if(registro.Id_Institucion_Procedencia != null){
-                    $("#cmb_instituciones").val(registro.Id_Institucion_Procedencia);
-                }
-                if(registro.Id_Especialidad != null){
-                    $("#cmb_especialidades").val(registro.Id_Especialidad);
-                }
-                if(registro.Anio_Inicio_B != null){
-                    $("#anio_inicio").val(registro.Anio_Inicio_B);
-                }
-                if(registro.Anio_Fin_B != null){
-                    $("#anio_fin").val(registro.Anio_Fin_B);
-                }
-                if(registro.Tel_Fijo != null){
-                    $("#tel_fijo").val(registro.Tel_Fijo);
-                }
-                if(registro.Tel_Movil != null){
-                    $("#tel_movil").val(registro.Tel_Movil);
-                }
-                if(registro.Fecha_Nacimiento != null){
-                    $("#fecha_nacimiento").val(registro.Fecha_Nacimiento);
-                }
-                if(registro.DUI != null){
-                    $("#dui").val(registro.DUI);
-                }
-                if(registro.NIT != null){
-                    $("#nit").val(registro.NIT);
-                }
-                if(registro.Id_Carrera != null){
-                    $("#cmb_carreras").val(registro.Id_Carrera);
-                }
-                if(registro.Imagen != null){
-                    $("#img_detalle").attr("src", "../../resource/img/postulantes/"+registro.Imagen);
-                    $("#imagen").val(registro.Imagen);
-                }
+                    //llenando los inputs, siempre y cuando sea != null lo que setearemos
+                    var registro = respuesta.registros[0];
+                    if(registro.Id_Detalle_Postulante != null){
+                        $("#id_detalle_postulante").val(registro.Id_Carrera);
+                    }
+                    if(registro.Id_Institucion_Procedencia != null){
+                        $("#cmb_instituciones").val(registro.Id_Institucion_Procedencia);
+                    }
+                    if(registro.Id_Especialidad != null){
+                        $("#cmb_especialidades").val(registro.Id_Especialidad);
+                    }
+                    if(registro.Anio_Inicio_B != null){
+                        $("#anio_inicio").val(registro.Anio_Inicio_B);
+                    }
+                    if(registro.Anio_Fin_B != null){
+                        $("#anio_fin").val(registro.Anio_Fin_B);
+                    }
+                    if(registro.Tel_Fijo != null){
+                        $("#tel_fijo").val(registro.Tel_Fijo);
+                    }
+                    if(registro.Tel_Movil != null){
+                        $("#tel_movil").val(registro.Tel_Movil);
+                    }
+                    if(registro.Fecha_Nacimiento != null){
+                        $("#fecha_nacimiento").val(registro.Fecha_Nacimiento);
+                    }
+                    if(registro.DUI != null){
+                        $("#dui").val(registro.DUI);
+                    }
+                    if(registro.NIT != null){
+                        $("#nit").val(registro.NIT);
+                    }
+                    if(registro.Id_Carrera != null){
+                        $("#cmb_carreras").val(registro.Id_Carrera);
+                    }
+                    //modificamos el atributo src de una etiqueta img para mostrar la imagen
+                    if(registro.Imagen != null){
+                        $("#img_detalle").attr("src", "../../resource/img/postulantes/"+registro.Imagen);
+                        //en un input invisible ponemos el nombre de la imagen
+                        $("#imagen").val(registro.Imagen);
+                    }
 
-                //segun el estado de la solicitud se dispone de diferentes botones
-                var btns = "";
-                if(registro.Estado == 1){ //sin ingresar detalle
-                    btns = '\
-                    <a class="btn btn-success font-white" data-toggle="tooltip"\
-                        data-placement="bottom" title="Guarda los datos sin finalizar la solicitud, dejando lugar a modificaciones."\
-                        onclick="registrar_detalle_postulante();" >\
-                        Guardar <i class="fa fa-save"></i>\
-                    </a>';
+                    //segun el estado de la solicitud se dispone de diferentes botones
+                    var btns = "";
+                    if(registro.Estado == 1){ //sin ingresar detalle
+                        btns = '\
+                        <a class="btn btn-success font-white" data-toggle="tooltip"\
+                            data-placement="bottom" title="Guarda los datos sin finalizar la solicitud, dejando lugar a modificaciones."\
+                            onclick="registrar_detalle_postulante();" >\
+                            Guardar <i class="fa fa-save"></i>\
+                        </a>';
+                    }
+                    if(registro.Estado == 2){ //ingreso detalles pero aun no ha finalizado
+                        btns = '\
+                        <a class="btn btn-success font-white" data-toggle="tooltip"\
+                            data-placement="bottom" title="Guarda los datos sin finalizar la solicitud, dejando lugar a modificaciones."\
+                            onclick="editar_detalle_postulante();" >\
+                            Guardar <i class="fa fa-save"></i>\
+                        </a>\
+                        <a class="btn btn-danger font-white" data-toggle="tooltip"\
+                            data-placement="bottom" title="Finaliza la solicitud y ya no podra ser modificada posteriormente."\
+                            onclick="finalizar_detalle_postulante();">\
+                            Finalizar <i class="fa fa-check"></i>\
+                        </a>';
+                    }
+                    if(registro.Estado == 3){ //finalizo de llenar la informacion de la solicitud
+                        btns = '\
+                        <a class="btn btn-primary font-white" data-toggle="tooltip"\
+                            data-placement="bottom" title="Reporte en PDF con los datos ingresados."\
+                            href="../../core/reports/dashboard/detalles_postulante_online.php" target="_blank">\
+                            Solicitud <i class="fa fa-file"></i>\
+                        </a>';
+                    }
+                    //se carga el html en el div respectivo
+                    $("#btns_solicitud").html(btns);
                 }
-                if(registro.Estado == 2){ //ingreso detalles pero aun no ha finalizado
-                    btns = '\
-                    <a class="btn btn-success font-white" data-toggle="tooltip"\
-                        data-placement="bottom" title="Guarda los datos sin finalizar la solicitud, dejando lugar a modificaciones."\
-                        onclick="editar_detalle_postulante();" >\
-                        Guardar <i class="fa fa-save"></i>\
-                    </a>\
-                    <a class="btn btn-danger font-white" data-toggle="tooltip"\
-                        data-placement="bottom" title="Finaliza la solicitud y ya no podra ser modificada posteriormente."\
-                        onclick="finalizar_detalle_postulante();">\
-                        Finalizar <i class="fa fa-check"></i>\
-                    </a>';
-                }
-                if(registro.Estado == 3){ //finalizo de llenar la informacion de la solicitud
-                    btns = '\
-                    <a class="btn btn-primary font-white" data-toggle="tooltip"\
-                        data-placement="bottom" title="Reporte en PDF con los datos ingresados."\
-                        href="../../core/reports/dashboard/detalles_postulante_online.php" target="_blank">\
-                        Solicitud <i class="fa fa-file"></i>\
-                    </a>';
-                }
-                //se carga el html en el div respectivo
-                $("#btns_solicitud").html(btns);
             }
         }, error: function(respuesta){
             console.log("Error:");
@@ -333,6 +333,65 @@ function finalizar_detalle_postulante(){
                     console.log(respuesta);
                 }
             });
+        }
+    });
+}
+
+var CODIGO_RESTAURAR = "";
+var ID = "";
+
+function restaurar_enviar_email(){
+    var datos = $("#frm_correo").serialize();
+    $.ajax({
+        type: "POST",
+        data: datos,
+        url: "../../core/controllers/scripts/postulantes.php?accion=restaurar_enviar_email",
+        success: function (respuesta) {
+            if(respuesta.resultado){
+                CODIGO_RESTAURAR = respuesta.codigo;
+                ID = respuesta.id;
+                $("#frm_correo")[0].reset();
+                $("#mdl_restaurar_1").modal("hide");
+                $("#mdl_restaurar_2").modal("show");
+            }else{
+                swal({ title: "Información!", text: respuesta.mensaje, icon: "info", button: "Aceptar", closeOnClickOutside: false });
+            }
+        }, error: function(respuesta){
+            console.log("Error:");
+            console.log(respuesta);
+        }
+    });
+}
+
+function verificar_codigo(){
+    if(String($("#codigo_verificar").val()) == String(CODIGO_RESTAURAR)){
+        $("#frm_codigo_verificar")[0].reset();
+        $("#mdl_restaurar_2").modal("hide");
+        $("#mdl_restaurar_3").modal("show");
+    }else{
+        swal({ title: "Información!", text: "Código incorrecto.", icon: "info", button: "Aceptar", closeOnClickOutside: false });
+    }
+}
+
+function restaurar(){
+    var datos = $("#frm_restaurar").serialize() + "&id="+ID;
+    $.ajax({
+        type: "POST",
+        data: datos,
+        url: "../../core/controllers/scripts/postulantes.php?accion=restaurar",
+        success: function (respuesta) {
+            if(respuesta.resultado){
+                CODIGO_RESTAURAR = respuesta.codigo;
+                ID = respuesta.id;
+                $("#frm_restaurar")[0].reset();
+                $("#mdl_restaurar_3").modal("hide");
+                swal({title: "Aviso!", text: "Operación realizada con éxito", icon: "success", button: "Aceptar", closeOnClickOutside: false});
+            }else{
+                swal({ title: "Información!", text: respuesta.mensaje, icon: "info", button: "Aceptar", closeOnClickOutside: false });
+            }
+        }, error: function(respuesta){
+            console.log("Error:");
+            console.log(respuesta);
         }
     });
 }
