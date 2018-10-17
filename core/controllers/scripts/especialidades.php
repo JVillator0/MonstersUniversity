@@ -18,6 +18,7 @@ if(isset($_GET["accion"])){
         case "insertar":
             //validamos los datos
             $cls_especialidades->validateForm($_POST);
+            $cls_especialidades->validateXSS($_POST);
             if($cls_especialidades->setEspecialidad($_POST["especialidad"])){   
                 $cls_especialidades->setEstado(1);
                 //ejecutamos la accion
@@ -31,6 +32,7 @@ if(isset($_GET["accion"])){
         case "editar":
             //validamos los datos
             $cls_especialidades->validateForm($_POST);
+            $cls_especialidades->validateXSS($_POST);
             if($cls_especialidades->setId_especialidad($_POST["id_especialidad"])){
                 if($cls_especialidades->setEspecialidad($_POST["e_especialidad"])){
                     //ejecutamos la accion
@@ -48,6 +50,7 @@ if(isset($_GET["accion"])){
         case "eliminar":
             //validamos los datos
             $cls_especialidades->validateForm($_POST);
+            $cls_especialidades->validateXSS($_POST);
             if($cls_especialidades->setId_especialidad($_POST["id_especialidad"])){  
                 $cls_especialidades->setEstado(0);
                 //ejecutamos la accion

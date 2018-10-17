@@ -18,6 +18,7 @@ if(isset($_GET["accion"])){
         case "insertar":
             //validamos los datos
             $cls_instituciones->validateForm($_POST);
+            $cls_instituciones->validateXSS($_POST);
             if($cls_instituciones->setInstitucion($_POST["institucion"])){   
                 $cls_instituciones->setEstado(1);
                 //ejecutamos la accion
@@ -31,6 +32,7 @@ if(isset($_GET["accion"])){
         case "editar":
             //validamos los datos
             $cls_instituciones->validateForm($_POST);
+            $cls_instituciones->validateXSS($_POST);
             if($cls_instituciones->setId_institucion($_POST["id_institucion"])){
                 if($cls_instituciones->setInstitucion($_POST["e_institucion"])){
                     //ejecutamos la accion
@@ -48,6 +50,7 @@ if(isset($_GET["accion"])){
         case "eliminar":
             //validamos los datos
             $cls_instituciones->validateForm($_POST);
+            $cls_instituciones->validateXSS($_POST);
             if($cls_instituciones->setId_institucion($_POST["id_institucion"])){
                 $cls_instituciones->setEstado(0);
                 //ejecutamos la accion
