@@ -479,8 +479,6 @@
   <script src="../../libs/sweetalert/js/sweetalert.min.js"></script>
   <script src="../../core/controllers/public/main.js"></script>
   <script src="../../core/controllers/public/index.js"></script>
-  
-  <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
 
   </body>
 </html>

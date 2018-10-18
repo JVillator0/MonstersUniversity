@@ -191,6 +191,11 @@ class components
             <script src='../../resource/js/init_datatable.js'></script>
           ");
           break;
+        case 'recaptcha':
+          print("
+            <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
+          ");
+        break;
         
         default:
         

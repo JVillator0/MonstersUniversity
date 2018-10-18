@@ -239,7 +239,7 @@ function cargar_solicitud(){
                         btns = '\
                         <a class="btn btn-primary font-white" data-toggle="tooltip"\
                             data-placement="bottom" title="Reporte en PDF con los datos ingresados."\
-                            href="../../core/reports/dashboard/detalles_postulante_online.php" target="_blank">\
+                            href="../../core/reports/public/detalles_postulante.php" target="_blank">\
                             Solicitud <i class="fa fa-file"></i>\
                         </a>';
                     }
@@ -402,7 +402,13 @@ function restaurar_enviar_email(){
                     $("#mdl_restaurar_1").modal("hide");
                     $("#mdl_restaurar_2").modal("show");
                 }else{
-                    swal({ title: "Información!", text: respuesta.mensaje, icon: "info", button: "Aceptar", closeOnClickOutside: false });
+                    //si el mensaje ES DIFERENTE de indefinido o nulo, mostrara el mensaje que viene desde el servidor
+                    //si el mensaje SI ES nulo o indefinido, dira que ocurrio un error, esto sucede cuando las consultas fallan
+                    if(respuesta.mensaje != undefined || respuesta.mensaje != null){
+                        swal({ title: "Información!", text: respuesta.mensaje, icon: "info", button: "Aceptar", closeOnClickOutside: false });
+                    }else{
+                        swal({ title: "Error!", text: "Ocurrió un error al realizar la operación.", icon: "error", button: "Aceptar", closeOnClickOutside: false });
+                    }
                 }
             }, error: function(respuesta){
                 console.log("Error:");
@@ -437,7 +443,13 @@ function restaurar(){
                 //reseteo y mensaje de exito
                 swal({title: "Aviso!", text: "Operación realizada con éxito", icon: "success", button: "Aceptar", closeOnClickOutside: false});
             }else{
-                swal({ title: "Información!", text: respuesta.mensaje, icon: "info", button: "Aceptar", closeOnClickOutside: false });
+                //si el mensaje ES DIFERENTE de indefinido o nulo, mostrara el mensaje que viene desde el servidor
+                //si el mensaje SI ES nulo o indefinido, dira que ocurrio un error, esto sucede cuando las consultas fallan
+                if(respuesta.mensaje != undefined || respuesta.mensaje != null){
+                    swal({ title: "Información!", text: respuesta.mensaje, icon: "info", button: "Aceptar", closeOnClickOutside: false });
+                }else{
+                    swal({ title: "Error!", text: "Ocurrió un error al realizar la operación.", icon: "error", button: "Aceptar", closeOnClickOutside: false });
+                }
             }
         }, error: function(respuesta){
             console.log("Error:");

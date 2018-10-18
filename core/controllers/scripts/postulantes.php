@@ -54,7 +54,9 @@ if(isset($_GET["accion"])){
         break;
 
         case "iniciar":
-            session_start();
+            if(session_status() == PHP_SESSION_NONE){     
+                session_start(); 
+            }
             //validamos los datos
             $cls_postulantes->validateForm($_POST);
             $cls_postulantes->validateXSS($_POST);
@@ -69,7 +71,9 @@ if(isset($_GET["accion"])){
         break;
 
         case "finalizar":
-            session_start();
+            if(session_status() == PHP_SESSION_NONE){     
+                session_start(); 
+            }
             //validamos los datos
             $cls_postulantes->validateForm($_POST);
             $cls_postulantes->validateXSS($_POST);
@@ -84,7 +88,9 @@ if(isset($_GET["accion"])){
         break;
 
         case "editar_perfil":
-            session_start();
+            if(session_status() == PHP_SESSION_NONE){     
+                session_start(); 
+            }
             //validamos los datos
             $cls_postulantes->validateForm($_POST);
             $cls_postulantes->validateXSS($_POST);
@@ -96,7 +102,6 @@ if(isset($_GET["accion"])){
                             $retornar["resultado"] = $cls_postulantes->editar();
                             if($retornar["resultado"]){
                                 //rellenamos denuevo la variable de sesion
-                                session_start();
                                 $retornar["registro"] = $cls_postulantes->login();
                                 $_SESSION["info_postulante"] = $retornar["registro"];
                             }
@@ -119,7 +124,9 @@ if(isset($_GET["accion"])){
         break;
 
         case "editar_clave":
-            session_start();
+            if(session_status() == PHP_SESSION_NONE){     
+                session_start(); 
+            }
             //validamos los datos
             $cls_postulantes->validateForm($_POST);
             $cls_postulantes->validateXSS($_POST);
@@ -168,7 +175,9 @@ if(isset($_GET["accion"])){
                     $retornar["resultado"] = password_verify($_POST["lg_clave"], $retornar["registro"][0]["Clave"]);
                     if($retornar["resultado"]){
                         //si son correctas, llenamos la variable de sesion
-                        session_start();
+                        if(session_status() == PHP_SESSION_NONE){     
+                            session_start(); 
+                        }
                         $_SESSION["info_postulante"] = $retornar["registro"];
                     }else{
                         $retornar["mensaje"] = "Clave incorrecta";
@@ -186,7 +195,9 @@ if(isset($_GET["accion"])){
         
         case "online":
             //inicia la sesion
-            session_start();
+            if(session_status() == PHP_SESSION_NONE){     
+                session_start(); 
+            }
             //verifica si esta seteado el info_usuario en SESSION
             $retornar["resultado"] = isset($_SESSION["info_postulante"]);
             if($retornar["resultado"]){
@@ -200,7 +211,7 @@ if(isset($_GET["accion"])){
 
         case "destroy":
             //inicia la sesion
-            session_start();
+            session_start(); 
             //la des-setea
             unset($_SESSION["info_postulante"]);
         break;

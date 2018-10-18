@@ -39,7 +39,9 @@ if(isset($_GET["accion"])){
         break;
         
         case "seleccionar_online":
-            session_start();
+            if(session_status() == PHP_SESSION_NONE){     
+                session_start(); 
+            }
             //verifica si esta seteado el info_usuario en SESSION
             $retornar["resultado"] = isset($_SESSION["info_postulante"]);
             if($retornar["resultado"]){
@@ -71,7 +73,9 @@ if(isset($_GET["accion"])){
             $resp_validar = $archivos->validar();
             //si la imagen es valida....
             if($resp_validar["resultado"]){
-                session_start();
+                if(session_status() == PHP_SESSION_NONE){     
+                    session_start(); 
+                }
                 //comenzamos con el insert en la tabla de detalles
                 //validamos los campos
                 $cls_detalles->validateForm($_POST);
@@ -222,7 +226,9 @@ if(isset($_GET["accion"])){
             }
 
             if($retornar["resultado"]){
-                session_start();
+                if(session_status() == PHP_SESSION_NONE){     
+                    session_start(); 
+                }
                 //comenzamos con el insert en la tabla de detalles
                 //validamos los campos
                 $cls_detalles->validateForm($_POST);

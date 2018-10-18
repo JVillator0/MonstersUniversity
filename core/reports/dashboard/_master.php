@@ -6,7 +6,7 @@ require_once("../../../libs/fpdf/exfpdf.php");
 require_once("../../../libs/fpdf/easyTable.php");
 //iniciando las variables de sesion si es que no estan iniciadas antes
 if(session_status() == PHP_SESSION_NONE){
-    session_start();
+    session_start(); 
 }
 //seteando la zona horaria
 date_default_timezone_set("America/El_Salvador");
