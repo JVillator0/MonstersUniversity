@@ -1,7 +1,7 @@
 ----------------------------------------
 |               dashboard              |
 ----------------------------------------
-alias: administrador.sistema@gmail.com
+alias: administrador
 clave: 12345Aa!
 
 

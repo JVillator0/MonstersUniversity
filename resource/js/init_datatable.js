@@ -34,7 +34,6 @@ function initDatatable(id) {
         ordering: true,
         retrieve: true,
     });
-    $("#content_dashboard").removeClass("hide");
 }
 
 function PantallaCambio() {
