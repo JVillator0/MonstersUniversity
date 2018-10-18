@@ -6,7 +6,32 @@ $(document).ready(function () {
     max = getFechaAtras(16, "year", "DD/MM/YYYY");
     //inicializo el datepicker
     datepickers("fecha_nacimiento", min, max, max);
+    //verifica que todo este bien con la conexion
+    errores_conexion();
 });
+
+function errores_conexion(){
+    //solicita a un controlador especial el estado de la conexion
+    $.ajax({
+        type: "POST",
+        data: null,
+        url: "../../core/helpers/php/conexion.php?accion=verificar",
+        success: function (respuesta) {
+            if(respuesta.estado){//wiu wiu hay errores
+                swal({ 
+                    title: "Error de conexión!", 
+                    text: "Ocurrió un error al conectarse a la base de datos.\nComunicarse con el administrador del sitio.", 
+                    icon: "error", 
+                    button: false, 
+                    closeOnClickOutside: false
+                });
+            }
+        }, error: function(respuesta){
+            console.log("Error:");
+            console.log(respuesta);
+        }
+    });
+}
 
 //metodo para obtener la fecha hace x cantidad de tiempo a partir de la fecha actual
 function getFechaAtras(num, tipo, formato) {

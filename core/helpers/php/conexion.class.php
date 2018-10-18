@@ -3,8 +3,8 @@ class cls_conexion
 {
     //variables a utilizar en la conexion
     private $servidor = "localhost";
-    private $usuario = "root";
-    private $clave = "";
+    private $usuario = "monsters_dba";
+    private $clave = "proyecto2k18";
     private $database = "monsters_university_db";
     private $charset_db = "UTF8";
 
@@ -13,7 +13,7 @@ class cls_conexion
 
     //get de la variable privada donde se almacenan los errores con la conexion
     public function getError(){
-        return $this->error;
+        return $this->error->getCode();
     }
 
     public function conectar(){
@@ -26,7 +26,7 @@ class cls_conexion
             return $conexion;
         }catch(PDOException $e){
             //si ocurrio un error, guardamos los errores en una variable
-            $this->error = $e->getCode();
+            $this->error = $e;
         }
     }
 }

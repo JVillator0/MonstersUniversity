@@ -1,3 +1,39 @@
+$(document).ready(function () {
+    errores_conexion();
+});
+
+function errores_conexion(){
+    $.ajax({
+        type: "POST",
+        data: null,
+        url: "../../core/helpers/php/conexion.php?accion=verificar",
+        success: function (respuesta) {
+            if(respuesta.estado){//wiu wiu hay errores
+                swal({ 
+                    title: "Error de conexión!", 
+                    text: "Ocurrió un error al conectarse a la base de datos.", 
+                    icon: "error", 
+                    buttons: "Detalles", 
+                    dangerMode: true,
+                    closeOnClickOutside: false }).then(function(){
+                        swal({ 
+                            title: "Información del error de conexión!", 
+                            text: "Código:\n" + respuesta.codigo + "\n" +
+                            "Mensaje:\n" + respuesta.mensaje + "\n"
+                            , 
+                            icon: "error", 
+                            button: false, 
+                            closeOnClickOutside: false 
+                        });
+                });
+            }
+        }, error: function(respuesta){
+            console.log("Error:");
+            console.log(respuesta);
+        }
+    });
+}
+
 var info_usuario = null;
 function online(){
     $.ajax({
@@ -33,7 +69,7 @@ function online(){
 function destroy(){
     swal({
         title: "ADVERTENCIA", text: "Esta apunto de cerrar sesión.\n¿Desea continuar?", icon: "warning", closeOnClickOutside: false,
-        buttons: ["Cancelar", "Eliminar"], dangerMode: true
+        buttons: ["Cancelar", "Cerrar sesión"], dangerMode: true
     }).then(function(aceptar) {
         if(aceptar){
             $.ajax({
