@@ -13,7 +13,7 @@ class cls_conexion
 
     //get de la variable privada donde se almacenan los errores con la conexion
     public function getError(){
-        return $this->error->getCode();
+        return $this->error;
     }
 
     public function conectar(){

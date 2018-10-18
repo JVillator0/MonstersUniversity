@@ -15,6 +15,9 @@ clave: 12345Aa!
 ----------------------------------------
 |   otros aspectos a tener en cuenta   |
 ----------------------------------------
+0.
+despues de exportar la base de datos se debe correr el script
+de usuario_db.sql
 1. 
 cuando se ponga la "database.sql" es obligatorio
 cambiar los correos de los usuarios anteriormente

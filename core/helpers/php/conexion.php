@@ -12,8 +12,10 @@ if(isset($_GET["accion"])){
         case "verificar":
             $conexion = $class_obj->Conectar();
             $respuesta["estado"] = count($class_obj->getError()) > 0;
-            $respuesta["codigo"] = $class_obj->getError()->getCode();
-            $respuesta["mensaje"] = $class_obj->getError()->getMessage();
+            if($respuesta["estado"]){
+                $respuesta["codigo"] = $class_obj->getError()->getCode();
+                $respuesta["mensaje"] = $class_obj->getError()->getMessage();
+            }
             $conexion = null;
         break;
 

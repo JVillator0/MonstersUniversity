@@ -8,30 +8,42 @@ function errores_conexion(){
         data: null,
         url: "../../core/helpers/php/conexion.php?accion=verificar",
         success: function (respuesta) {
-            if(respuesta.estado){//wiu wiu hay errores
-                swal({ 
-                    title: "Error de conexión!", 
-                    text: "Ocurrió un error al conectarse a la base de datos.", 
-                    icon: "error", 
-                    buttons: "Detalles", 
-                    dangerMode: true,
-                    closeOnClickOutside: false }).then(function(){
-                        swal({ 
-                            title: "Información del error de conexión!", 
-                            text: "Código:\n" + respuesta.codigo + "\n" +
-                            "Mensaje:\n" + respuesta.mensaje + "\n"
-                            , 
-                            icon: "error", 
-                            button: false, 
-                            closeOnClickOutside: false 
-                        });
-                });
-            }
+            //esto pasa cuando no hay errores con el servidor
+            verificar(respuesta);
         }, error: function(respuesta){
-            console.log("Error:");
-            console.log(respuesta);
+            //esto pasa cuando SI hay errores con el servidor
+            var arr = JSON.stringify(respuesta.responseText).split("{");
+            respuesta = JSON.stringify("{" + arr[1]).replace(/\\\\\\/g, "");
+            respuesta = respuesta.replace(/\\"/g,"");
+            respuesta = respuesta.replace(/"{/g,"{");
+            respuesta = respuesta.replace(/}"/g,"}");
+            //asi que tengo que jugar con el responsetext para volver a armar el arreglo
+            respuesta = JSON.parse(respuesta);
+            verificar(respuesta);
         }
     });
+}
+//muestra el mensaje de error y sus detalles
+function verificar(respuesta){
+    if(respuesta.estado){//wiu wiu hay errores
+        swal({ 
+            title: "Error de conexión!", 
+            text: "Ocurrió un error al conectarse a la base de datos.", 
+            icon: "error", 
+            buttons: "Detalles", 
+            dangerMode: true,
+            closeOnClickOutside: false }).then(function(){
+                swal({ 
+                    title: "Información del error de conexión!", 
+                    text: "Código:\n" + respuesta.codigo + "\n" +
+                    "Mensaje:\n" + respuesta.mensaje + "\n"
+                    , 
+                    icon: "error", 
+                    button: false, 
+                    closeOnClickOutside: false 
+                });
+        });
+    }
 }
 
 var info_usuario = null;
