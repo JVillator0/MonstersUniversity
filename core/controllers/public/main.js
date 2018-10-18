@@ -1,14 +1,19 @@
 $(document).ready(function () {
+    //inicializo los tooltip chidos de bootstrap 
     $('[data-toggle="tooltip"]').tooltip();
+    //obtengo las fechas minimas y maximas para el datepicker
     min = getFechaAtras(100, "year", "DD/MM/YYYY");
     max = getFechaAtras(16, "year", "DD/MM/YYYY");
+    //inicializo el datepicker
     datepickers("fecha_nacimiento", min, max, max);
 });
 
+//metodo para obtener la fecha hace x cantidad de tiempo a partir de la fecha actual
 function getFechaAtras(num, tipo, formato) {
     return moment().subtract(num, tipo).format(formato);
 }
 
+//metodo para inicializar los datepickers
 function datepickers(id, min, max, valor){
     $("#"+id).datepicker({
         uiLibrary: "bootstrap4",
@@ -20,6 +25,7 @@ function datepickers(id, min, max, valor){
     });
 }
 
+//obtengo la informacion del usuario que este dentro del sistema
 var info_usuario = null;
 function online(){
     $.ajax({
@@ -34,6 +40,7 @@ function online(){
             $("#btn_cerrar_sesion").html("");
             $("#btn_postulante").html("");
 
+            //dependiendo de si hay o no un usuario online, cambio el DOM para que vea diferentes botones
             if(respuesta.resultado){
                 $("#btn_postulante").html('\
                     <a class="btn btn-success btn-sm" data-toggle="modal" href="#mdl_postulacion">\
@@ -59,6 +66,7 @@ function online(){
     });
 }
 
+//metodo para iniciar sesion
 function login(){
     var datos = $("#frm_login").serialize();
     $.ajax({
