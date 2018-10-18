@@ -10,7 +10,6 @@
         <h1 class="page-header"><i class='fa fa-users fa-fw'></i> Usuarios</h1>
         <div class="row">
           <a href="#mdl_agregar" data-toggle="modal" class="btn btn-success"><i class="fa fa-plus"></i> Agregar registro </a>
-          <a class="btn btn-default pull-right" onclick="seleccionar();"><i class="fa fa-refresh"></i></a>
         </div>
         <div class="row abajo-10px">
           <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-registros">

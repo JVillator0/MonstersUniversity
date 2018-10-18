@@ -12,8 +12,11 @@ $(document).ready(function () {
     $("#nit").mask("0000-000000-000-0");
 });
 
+//div del catch es para quitar y poner el recaptcha en diferentes posiciones de la pagina
+//esto es porque lo necesito en dos partes del mismo sitio, pero el recaptcha verifica que 
+//todos esten chequeados, asi que cuando tengo los dos activos se chocan y no funcionam bien
+//los procesos, por lo que preferi controlar cual recaptcha quiero ver segun la opcion que ve el usuario 
 function div_catch(caso){
-    console.log(caso);
     $("#catch_registrarse").html('');
     $("#catch_restablecer").html('');
     switch (caso) {
@@ -47,6 +50,7 @@ function seleccionar_carreras(){
             if(respuesta.registros.length > 0){
                 var content_cuerpo = "";
                 var cmb_cuerpo = "<option selected value='0'>Seleccionar...</option>";
+                //armo la tabla a partir de los registros obtenidos
                 respuesta.registros.forEach(registro => {
                     content_cuerpo = content_cuerpo + '\
                     <div class="col-lg-4 col-md-6 text-center">\
@@ -59,6 +63,7 @@ function seleccionar_carreras(){
                     </div>';
                     cmb_cuerpo = cmb_cuerpo + '<option value="'+registro.Id_Carrera+'">'+registro.Carrera+'</option>';
                 });
+                //seteo la tabla o select al elemento del dom especificado
                 $("#content_carreras").html(content_cuerpo);
                 $("#cmb_carreras").html(cmb_cuerpo);
             }
@@ -77,10 +82,13 @@ function seleccionar_especialidades(){
         url: "../../core/controllers/scripts/especialidades.php?accion=seleccionar", 
         success: function (respuesta) {
             if(respuesta.registros.length > 0){
+                //primera opcion del select que se armara
                 var cmb_cuerpo = "<option selected value='0'>Seleccionar...</option>";
+                //armando cuerpo del select
                 respuesta.registros.forEach(registro => {
                     cmb_cuerpo = cmb_cuerpo + '<option value="'+registro.Id_Especialidad+'">'+registro.Especialidad+'</option>';
                 });
+                //seteando las opciones al select
                 $("#cmb_especialidades").html(cmb_cuerpo);
             }
         }, error: function(respuesta){
@@ -98,10 +106,13 @@ function seleccionar_instituciones(){
         url: "../../core/controllers/scripts/instituciones.php?accion=seleccionar", 
         success: function (respuesta) {
             if(respuesta.registros.length > 0){
+                //primera opcion del select que se armara
                 var cmb_cuerpo = "<option selected value='0'>Seleccionar...</option>";
+                //armando cuerpo del select
                 respuesta.registros.forEach(registro => {
                     cmb_cuerpo = cmb_cuerpo + '<option value="'+registro.Id_Institucion_Procedencia+'">'+registro.Institucion_Procedencia+'</option>';
                 });
+                //seteando las opciones al select
                 $("#cmb_instituciones").html(cmb_cuerpo);
             }
         }, error: function(respuesta){
@@ -113,6 +124,7 @@ function seleccionar_instituciones(){
 
 //metodo apra registrar un postulante
 function registrar_postulante(){
+    //verifico el captcha
     var response = grecaptcha.getResponse();
     if (response.length == 0) {
         swal({ title: "Información!", text: "Por favor verifique el captcha", icon: "info", button: "Aceptar", closeOnClickOutside: false });
@@ -227,7 +239,7 @@ function cargar_solicitud(){
                         btns = '\
                         <a class="btn btn-primary font-white" data-toggle="tooltip"\
                             data-placement="bottom" title="Reporte en PDF con los datos ingresados."\
-                            href="../../core/reports/dashboard/detalles_postulante_online.php" target="_blank">\
+                            href="../../core/reports/public/detalles_postulante.php" target="_blank">\
                             Solicitud <i class="fa fa-file"></i>\
                         </a>';
                     }
@@ -370,6 +382,7 @@ var CODIGO_RESTAURAR = "";
 var ID = "";
 
 function restaurar_enviar_email(){
+    //verifico el captcha
     var response = grecaptcha.getResponse();
     if (response.length == 0) {
         swal({ title: "Información!", text: "Por favor verifique el captcha", icon: "info", button: "Aceptar", closeOnClickOutside: false });
@@ -381,13 +394,21 @@ function restaurar_enviar_email(){
             url: "../../core/controllers/scripts/postulantes.php?accion=restaurar_enviar_email",
             success: function (respuesta) {
                 if(respuesta.resultado){
+                    //si el resultado fue true, guardo el codigo que se envio, y la id del postulante
                     CODIGO_RESTAURAR = respuesta.codigo;
                     ID = respuesta.id;
+                    //reseteo y al siguiente paso
                     $("#frm_correo")[0].reset();
                     $("#mdl_restaurar_1").modal("hide");
                     $("#mdl_restaurar_2").modal("show");
                 }else{
-                    swal({ title: "Información!", text: respuesta.mensaje, icon: "info", button: "Aceptar", closeOnClickOutside: false });
+                    //si el mensaje ES DIFERENTE de indefinido o nulo, mostrara el mensaje que viene desde el servidor
+                    //si el mensaje SI ES nulo o indefinido, dira que ocurrio un error, esto sucede cuando las consultas fallan
+                    if(respuesta.mensaje != undefined || respuesta.mensaje != null){
+                        swal({ title: "Información!", text: respuesta.mensaje, icon: "info", button: "Aceptar", closeOnClickOutside: false });
+                    }else{
+                        swal({ title: "Error!", text: "Ocurrió un error al realizar la operación.", icon: "error", button: "Aceptar", closeOnClickOutside: false });
+                    }
                 }
             }, error: function(respuesta){
                 console.log("Error:");
@@ -398,6 +419,7 @@ function restaurar_enviar_email(){
 }
 
 function verificar_codigo(){
+    //en la verificacion es basicamente comparar strings y ver que esten correctos
     if(String($("#codigo_verificar").val()) == String(CODIGO_RESTAURAR)){
         $("#frm_codigo_verificar")[0].reset();
         $("#mdl_restaurar_2").modal("hide");
@@ -408,6 +430,7 @@ function verificar_codigo(){
 }
 
 function restaurar(){
+    //para restaurar obtengo la info del frm y agrego la id del postulante recuperando
     var datos = $("#frm_restaurar").serialize() + "&id="+ID;
     $.ajax({
         type: "POST",
@@ -415,13 +438,18 @@ function restaurar(){
         url: "../../core/controllers/scripts/postulantes.php?accion=restaurar",
         success: function (respuesta) {
             if(respuesta.resultado){
-                CODIGO_RESTAURAR = respuesta.codigo;
-                ID = respuesta.id;
                 $("#frm_restaurar")[0].reset();
                 $("#mdl_restaurar_3").modal("hide");
+                //reseteo y mensaje de exito
                 swal({title: "Aviso!", text: "Operación realizada con éxito", icon: "success", button: "Aceptar", closeOnClickOutside: false});
             }else{
-                swal({ title: "Información!", text: respuesta.mensaje, icon: "info", button: "Aceptar", closeOnClickOutside: false });
+                //si el mensaje ES DIFERENTE de indefinido o nulo, mostrara el mensaje que viene desde el servidor
+                //si el mensaje SI ES nulo o indefinido, dira que ocurrio un error, esto sucede cuando las consultas fallan
+                if(respuesta.mensaje != undefined || respuesta.mensaje != null){
+                    swal({ title: "Información!", text: respuesta.mensaje, icon: "info", button: "Aceptar", closeOnClickOutside: false });
+                }else{
+                    swal({ title: "Error!", text: "Ocurrió un error al realizar la operación.", icon: "error", button: "Aceptar", closeOnClickOutside: false });
+                }
             }
         }, error: function(respuesta){
             console.log("Error:");

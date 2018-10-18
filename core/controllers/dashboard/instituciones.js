@@ -1,12 +1,14 @@
 $(document).ready(function(){
-    window.setTimeout(function(){
-        online();
-    }, 100);
+    online();
     seleccionar();
 });
 
+//cuando se selecciona un registro, de esta manera se llenan los campos del modal
 function click_registro(registro){
+    //en la tabla, esta el registro en formato JSON reemplazando las " por @& para poder ponerlo en un
+    //solo parametro, al recibirlo aqui, volvemos a hacerlo formato json y posteriormente un arreglo
     registro = JSON.parse(registro.replace(/@&/g, "\""));
+    //seteamos los valores
     $("#id_institucion").val(registro.Id_Institucion_Procedencia);
     $("#e_institucion").val(registro.Institucion_Procedencia);
 }
@@ -19,7 +21,9 @@ function seleccionar(){
         success: function (respuesta) {
             if(respuesta.registros.length > 0){
                 var tabla_cuerpo = "";
+                //ciclo para armar la tabla
                 respuesta.registros.forEach(registro => {
+                    //reemplazando los " por @& en el string json para solo tener un parametro en el editar
                     var parametros = JSON.stringify(registro).replace(/"/g, "@&");
                     tabla_cuerpo = tabla_cuerpo + '\
                     <tr>\
@@ -34,7 +38,9 @@ function seleccionar(){
                         </td>\
                     </tr>';
                 });
+                //llenando el tbody de la tabla
                 $("#tbody_registros").html(tabla_cuerpo);
+                //inicializando la datatable
                 window.setTimeout(function(){
                     initTabla("dataTables-registros");
                 }, 100);
@@ -47,6 +53,7 @@ function seleccionar(){
 }
 
 function insertar(){
+    //obteniendo los datos del formulario
     var datos = $("#frm_agregar").serialize();
     $.ajax({
         type: "POST",
@@ -54,11 +61,14 @@ function insertar(){
         url: "../../core/controllers/scripts/instituciones.php?accion=insertar",
         success: function (respuesta) {
             if(respuesta.resultado){
+                //mensaje de exito, recargando tabla, reseteando formulario y cerrando modal
                 swal({title: "Aviso!", text: "Operación realizada con éxito", icon: "success", button: "Aceptar", closeOnClickOutside: false});
                 seleccionar();
                 $('#frm_agregar')[0].reset();
                 $("#mdl_agregar").modal("hide");
             }else{
+                //si el mensaje ES DIFERENTE de indefinido o nulo, mostrara el mensaje que viene desde el servidor
+                //si el mensaje SI ES nulo o indefinido, dira que ocurrio un error, esto sucede cuando las consultas fallan
                 if(respuesta.mensaje != undefined || respuesta.mensaje != null){
                     swal({ title: "Información!", text: respuesta.mensaje, icon: "info", button: "Aceptar", closeOnClickOutside: false });
                 }else{
@@ -73,6 +83,7 @@ function insertar(){
 }
 
 function editar(){
+    //obteniendo los datos del formulario
     var datos = $("#frm_editar").serialize();
     $.ajax({
         type: "POST",
@@ -80,11 +91,14 @@ function editar(){
         url: "../../core/controllers/scripts/instituciones.php?accion=editar",
         success: function (respuesta) {
             if(respuesta.resultado){
+                //mensaje de exito, recargando tabla, reseteando formulario y cerrando modal
                 swal({title: "Aviso!", text: "Operación realizada con éxito", icon: "success", button: "Aceptar", closeOnClickOutside: false});
                 seleccionar();
                 $('#frm_editar')[0].reset();
                 $("#mdl_editar").modal("hide");
             }else{
+                //si el mensaje ES DIFERENTE de indefinido o nulo, mostrara el mensaje que viene desde el servidor
+                //si el mensaje SI ES nulo o indefinido, dira que ocurrio un error, esto sucede cuando las consultas fallan
                 if(respuesta.mensaje != undefined || respuesta.mensaje != null){
                     swal({ title: "Información!", text: respuesta.mensaje, icon: "info", button: "Aceptar", closeOnClickOutside: false });
                 }else{
@@ -99,6 +113,7 @@ function editar(){
 }
 
 function eliminar(id){
+    //pido confirmacion de la accion
     swal({
         title: "ADVERTENCIA", text: "Esta apunto de eliminar un registro del sistema.\nEsta operación puede afectar los registros relacionados.\n¿Desea continuar?", icon: "warning", closeOnClickOutside: false,
         buttons: ["Cancelar", "Eliminar"], dangerMode: true
@@ -109,10 +124,13 @@ function eliminar(id){
                 data: "id_institucion="+id,
                 url: "../../core/controllers/scripts/instituciones.php?accion=eliminar",
                 success: function (respuesta) {
+                    //mensaje de exito y recargando la tabla
                     if(respuesta.resultado){
                         swal({title: "Aviso!", text: "Operación realizada con éxito", icon: "success", button: "Aceptar", closeOnClickOutside: false});
                         seleccionar();
                     }else{
+                        //si el mensaje ES DIFERENTE de indefinido o nulo, mostrara el mensaje que viene desde el servidor
+                        //si el mensaje SI ES nulo o indefinido, dira que ocurrio un error, esto sucede cuando las consultas fallan
                         if(respuesta.mensaje != undefined || respuesta.mensaje != null){
                             swal({ title: "Información!", text: respuesta.mensaje, icon: "info", button: "Aceptar", closeOnClickOutside: false });
                         }else{

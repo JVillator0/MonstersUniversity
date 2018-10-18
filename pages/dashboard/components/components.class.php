@@ -133,20 +133,6 @@ class components
             <link href='../../resource/css/sb-admin-2.css' rel='stylesheet'>
           ");
           break;
-        
-        case 'bootstrap_social': 
-          print("
-            <!-- Social Buttons CSS -->
-            <link href='../../libs/bootstrap-social/bootstrap-social.css' rel='stylesheet'>
-          ");
-          break;
-        
-        case 'morris': 
-          print("
-            <!-- Social Buttons CSS -->
-            <link href='../../libs/morrisjs/morris.css' rel='stylesheet'>
-          ");
-          break;
 
         case 'datatables':
           print("
@@ -188,26 +174,6 @@ class components
             <script src='../../core/controllers/dashboard/main.js'></script>
           ");
           break;
-      
-        case 'flot': 
-          print("
-          <!-- Flot Charts JavaScript -->
-          <script src='../../libs/flot/excanvas.min.js'></script>
-          <script src='../../libs/flot/jquery.flot.js'></script>
-          <script src='../../libs/flot/jquery.flot.pie.js'></script>
-          <script src='../../libs/flot/jquery.flot.resize.js'></script>
-          <script src='../../libs/flot/jquery.flot.time.js'></script>
-          <script src='../../libs/flot-tooltip/jquery.flot.tooltip.min.js'></script>
-          ");
-          break;
-
-        case 'morris':
-          print("
-            <!-- Morris Charts JavaScript -->
-            <script src='../../libs/raphael/raphael.min.js'></script>
-            <script src='../../libs/morrisjs/morris.min.js'></script>
-          ");
-          break;
 
         case 'echarts':
           print("
@@ -225,6 +191,11 @@ class components
             <script src='../../resource/js/init_datatable.js'></script>
           ");
           break;
+        case 'recaptcha':
+          print("
+            <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
+          ");
+        break;
         
         default:
         
@@ -233,5 +204,4 @@ class components
     }
   } 
 }
-
 ?>

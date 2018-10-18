@@ -90,9 +90,13 @@ class cls_usuarios extends cls_validator
     //propiedades del modelo, los metodos
     public function seleccionar(){
         //sql de la consulta
-        $sql = "SELECT * FROM usuario U WHERE U.Estado = 1;";
+        $sql = "SELECT * FROM usuario U WHERE U.Id_Usuario != ? AND U.Estado = 1;";
         //preparando la consulta
         $query = $this->conexion->prepare($sql);
+        //bindeando los parametros de la consulta prepar, 
+        //de esta manera se valida que el usuario online no pueda
+        //editar su informacion como a cualquier otro usuario 
+        $query->bindParam(1, $this->id_usuario);
         //ejecutandola
         $query->execute();
         //obteniendo el resultado en un arreglo asociativo

@@ -1,10 +1,7 @@
 $(document).ready(function(){
-    window.setTimeout(function(){
-        online();
-    }, 100);
+    online();
     seleccionar();
 });
-
 
 function seleccionar(){
     $("#tbody_registros").html("");
@@ -18,8 +15,11 @@ function seleccionar(){
                 var tabla_cuerpo_g = "";
                 var fila = "";
                 var reporte = "";
+                //ciclo para armar la tabla
                 respuesta.registros.forEach(registro => {
+                    //ruta del reporte
                     reporte = "../../core/reports/dashboard/detalles_postulante.php?id="+registro.Id_Postulante;
+                    //fila de la tabla
                     fila = '\
                     <tr>\
                         <td>'+registro.Nombres+' '+registro.Apellidos+'</td>\
@@ -33,6 +33,7 @@ function seleccionar(){
                         </td>\
                     </tr>';
 
+                    //especificando a que tabla ira
                     if(registro.Estado == 3){//finalizadas
                         tabla_cuerpo_f = tabla_cuerpo_f + fila;
                     }
@@ -40,8 +41,10 @@ function seleccionar(){
                         tabla_cuerpo_g = tabla_cuerpo_g + fila;
                     }
                 });
+                //llenando los tbody de las tablas
                 $("#tbody_registros_f").html(tabla_cuerpo_f);
                 $("#tbody_registros_g").html(tabla_cuerpo_g);
+                //inicializando las datatables
                 window.setTimeout(function(){
                     initTabla("dataTables-registros-f");
                     initTabla("dataTables-registros-g");

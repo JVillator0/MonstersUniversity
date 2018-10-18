@@ -55,6 +55,9 @@
               <label>Escriba su alias</label>
               <input type="text" class="form-control" id="r_alias" name="r_alias">
             </div>
+            <div class="form-grup">
+              <div class="g-recaptcha" data-sitekey="6LdP8WYUAAAAAOe1rptxGjJncC41dJQyViDSseiJ"></div>\
+            </div>
           </form>
         </div>
         <div class="modal-footer">
@@ -125,7 +128,7 @@
   <!-- /.modal -->
 
 <?php
-  $libs_js = array("dependencias"); 
+  $libs_js = array("dependencias", "recaptcha"); 
   components::footer($libs_js); 
   echo('<script src="../../core/controllers/dashboard/login.js"></script>');
 ?>

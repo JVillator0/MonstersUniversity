@@ -2,7 +2,7 @@
 //titulo de la tab
 $_POST["titulo_tab"] = "Detalles del postulante";
 //mandando a llamar las dependencias que utilizaremos en este reporte
-require_once("_master_online.php");
+require_once("_master.php");
 require_once("../../helpers/php/conexion.class.php");
 require_once("../../helpers/php/validator.class.php");
 require_once("../../models/detalles.class.php");
@@ -13,7 +13,7 @@ $pdf->setY(45);
 
 //iniciando las variables de sesion si es que no estan iniciadas antes
 if(session_status() == PHP_SESSION_NONE){
-    session_start();
+    session_start(); 
 }
 
 //obtenemos la informacion del postulante que especificamso en la url

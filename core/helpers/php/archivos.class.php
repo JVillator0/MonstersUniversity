@@ -70,15 +70,15 @@ class Clss_Archivos
                     if($width == $this->height_perm && $height == $this->width_perm){
                         $respuesta["resultado"] = true;
                     }else{
-                        $respuesta['mensaje'] = "Dimensiones de la imagen no permitidas, deben de ser de $width por $height.";
+                        $respuesta["mensaje"] = "Dimensiones de la imagen no permitidas, deben de ser de $this->height_perm por $this->width_perm.";
                         $respuesta["resultado"] = false;
                     }
                 } else {
-                    $respuesta['mensaje'] = "El archivo sobrepasa el limite de tamaño, deben de ser $this->maximo_kb kb como máximo.";
+                    $respuesta["mensaje"] = "El archivo sobrepasa el limite de tamaño, deben de ser $this->maximo_kb kb como máximo.";
                     $respuesta["resultado"] = false;
                 }
             } else {
-                $respuesta['mensaje'] = "Extensión del archivo no permitida.";
+                $respuesta["mensaje"] = "Extensión del archivo no permitida.";
                 $respuesta["resultado"] = false;
             }
         }
