@@ -214,14 +214,6 @@ function cargar_solicitud(){
 
                     //segun el estado de la solicitud se dispone de diferentes botones
                     var btns = "";
-                    if(registro.Estado == 1){ //sin ingresar detalle
-                        btns = '\
-                        <a class="btn btn-success font-white" data-toggle="tooltip"\
-                            data-placement="bottom" title="Guarda los datos sin finalizar la solicitud, dejando lugar a modificaciones."\
-                            onclick="registrar_detalle_postulante();" >\
-                            Guardar <i class="fa fa-save"></i>\
-                        </a>';
-                    }
                     if(registro.Estado == 2){ //ingreso detalles pero aun no ha finalizado
                         btns = '\
                         <a class="btn btn-success font-white" data-toggle="tooltip"\
@@ -243,6 +235,16 @@ function cargar_solicitud(){
                             Solicitud <i class="fa fa-file"></i>\
                         </a>';
                     }
+                    //se carga el html en el div respectivo
+                    $("#btns_solicitud").html(btns);
+                }else{
+                    //esto es porque no ha ingresado el detalle
+                    var btns = '\
+                        <a class="btn btn-success font-white" data-toggle="tooltip"\
+                            data-placement="bottom" title="Guarda los datos sin finalizar la solicitud, dejando lugar a modificaciones."\
+                            onclick="registrar_detalle_postulante();" >\
+                            Guardar <i class="fa fa-save"></i>\
+                        </a>';
                     //se carga el html en el div respectivo
                     $("#btns_solicitud").html(btns);
                 }
