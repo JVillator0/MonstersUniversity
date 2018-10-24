@@ -17,6 +17,12 @@ function seleccionar(){
                 var reporte = "";
                 //ciclo para armar la tabla
                 respuesta.registros.forEach(registro => {
+                    if(registro.Tel_Movil == null){
+                        registro.Tel_Movil = "";
+                    }
+                    if(registro.Tel_Fijo == null){
+                        registro.Tel_Fijo = "";
+                    }
                     //ruta del reporte
                     reporte = "../../core/reports/dashboard/detalles_postulante.php?id="+registro.Id_Postulante;
                     //fila de la tabla
@@ -24,7 +30,7 @@ function seleccionar(){
                     <tr>\
                         <td>'+registro.Nombres+' '+registro.Apellidos+'</td>\
                         <td>'+registro.Institucion_Procedencia+'</td>\
-                        <td>'+registro.Telefonos+'</td>\
+                        <td>'+registro.Tel_Fijo+', '+registro.Tel_Movil+'</td>\
                         <td>'+registro.Correo+'</td>\
                         <td class="text-center">\
                             <a class="btn btn-info" href="'+reporte+'" target="_blank">\

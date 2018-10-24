@@ -63,8 +63,16 @@ $tb_postulante->printRow();
 $tb_postulante->easyCell("Correo electrónico:", 'border:LB; font-style:B; colspan:2; font-family:courier;');
 $tb_postulante->easyCell($postulante["Correo"], 'border:RB; colspan:2; font-family:courier;');
 $tb_postulante->printRow();
+
+if($postulante["Tel_Movil"] == null){
+    $postulante["Tel_Movil"] = "";
+}
+if($postulante["Tel_Fijo"] == null){
+    $postulante["Tel_Fijo"] = "";
+}
+
 $tb_postulante->easyCell("Teléfonos:", 'border:LB; font-style:B; colspan:2; font-family:courier;');
-$tb_postulante->easyCell($postulante["Telefonos"], 'border:RB; colspan:2; font-family:courier;');
+$tb_postulante->easyCell($postulante["Tel_Fijo"] . ", " . $postulante["Tel_Movil"], 'border:RB; colspan:2; font-family:courier;');
 $tb_postulante->printRow();
 $tb_postulante->easyCell("DUI:", 'border:L; font-style:B; colspan:1; font-family:courier;');
 $tb_postulante->easyCell($postulante["DUI"], 'border:; colspan:1; font-family:courier;');

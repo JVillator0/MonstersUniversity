@@ -160,7 +160,7 @@ class cls_detalles extends cls_validator
     public function seleccionar(){
         //sql de la consulta, utilozo INNER JOIN porque necesito todos los datos de los postulantes, sean nulos o no
         $sql = "SELECT P.Id_Postulante, P.Nombres, P.Apellidos, DP.Id_Detalle_Postulante, DATE_FORMAT(DP.Fecha_Nacimiento, '%d/%m/%Y') AS Fecha_Nacimiento, 
-        CONCAT(DP.Tel_Fijo, ' ' ,DP.Tel_Movil) AS Telefonos, DP.DUI, DP.NIT, DP.Imagen, P.Correo, 
+        CONCAT(DP.Tel_Fijo, ' ' ,DP.Tel_Movil) AS Telefonos, DP.Tel_Fijo, DP.Tel_Movil, DP.DUI, DP.NIT, DP.Imagen, P.Correo, 
         IP.Id_Institucion_Procedencia, IP.Institucion_Procedencia, E.Id_Especialidad, E.Especialidad, 
         DP.Anio_Inicio_B, DP.Anio_Fin_B, C.Id_Carrera, C.Carrera, C.Descripcion, P.Estado
         FROM postulante P
@@ -184,7 +184,7 @@ class cls_detalles extends cls_validator
     public function seleccionar_inners(){
         //sql de la consulta, utilozo INNER JOIN porque necesito todos los datos de los postulantes, sean nulos o no
         $sql = "SELECT P.Id_Postulante, P.Nombres, P.Apellidos, DP.Id_Detalle_Postulante, DATE_FORMAT(DP.Fecha_Nacimiento, '%d/%m/%Y') AS Fecha_Nacimiento, 
-        CONCAT(DP.Tel_Fijo, ', ' ,DP.Tel_Movil) AS Telefonos, DP.DUI, DP.NIT, DP.Imagen, P.Correo, 
+        CONCAT(DP.Tel_Fijo, ', ' ,DP.Tel_Movil) AS Telefonos, DP.Tel_Fijo, DP.Tel_Movil, DP.DUI, DP.NIT, DP.Imagen, P.Correo, 
         IP.Id_Institucion_Procedencia, IP.Institucion_Procedencia, E.Id_Especialidad, E.Especialidad, 
         DP.Anio_Inicio_B, DP.Anio_Fin_B, C.Id_Carrera, C.Carrera, C.Descripcion, P.Estado
         FROM postulante P
