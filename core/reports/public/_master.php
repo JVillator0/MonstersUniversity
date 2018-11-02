@@ -1,4 +1,5 @@
 <?php 
+require_once("_validator.php");
 //mandando a llamar librerias
 require_once("../../../libs/fpdf/fpdf.php");
 require_once("../../../libs/fpdf/exfpdf.php");
