@@ -183,8 +183,18 @@
     
     <div class="bg-dark text-white">
       <br>
-        <p class="text-center">Sistema de inscripcion de postulantes a Monsters University</p>
-        <p class="text-center"><strong> Este es un proyecto estudiantil, no tiene ningúna relación con Monsters Inc </strong>
+        <p class="text-center">
+          Sistema de inscripcion de postulantes a Monsters University
+        </p>
+        <p class="text-center">
+          <strong> 
+            Este es un proyecto estudiantil, no tiene ningúna relación con Monsters Inc 
+          </strong>
+        <p class="text-center">
+          <strong> Todas las imagenes utilizadas son propiedad de los estudios cinematograficos de 
+            <a href="https://www.pixar.com/" class="font-white"> <u>Pixar</u> </a> 
+          </strong>
+        </p>
       <br><br>
     </div>
 
