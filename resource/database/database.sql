@@ -42,9 +42,9 @@ CREATE TABLE `carrera` (
 --
 
 INSERT INTO `carrera` (`Id_Carrera`, `Carrera`, `Descripcion`, `Estado`) VALUES
-(1, 'Ing en sistemas informaticos', 'descripcion chida', 1),
-(2, 'Ing indurstrial', 'descripcion chida x2', 1),
-(3, 'Ing mecanica', 'descripcion chida x3', 1);
+(1, 'Carrera 1', 'descripcion 1', 1),
+(2, 'Carrera 2', 'descripcion 2', 1),
+(3, 'Carrera 3', 'descripcion 3', 1);
 
 -- --------------------------------------------------------
 
@@ -74,7 +74,7 @@ CREATE TABLE `detalle_postulante` (
 --
 
 INSERT INTO `detalle_postulante` (`Id_Detalle_Postulante`, `Id_Postulante`, `Id_Institucion_Procedencia`, `Id_Especialidad`, `Anio_Inicio_B`, `Anio_Fin_B`, `Id_Carrera`, `Tel_Fijo`, `Tel_Movil`, `Fecha_Nacimiento`, `DUI`, `NIT`, `Imagen`, `Estado`) VALUES
-(1, 1, 1, 1, 2000, 2003, 1, '2321-5242', '7002-0577', '1999-11-15', '12345678-9', '1234-123123-123-1', '1.jpg', 1),
+(1, 1, 1, 1, 2000, 2003, 1, '2321-5242', '7000-0007', '1999-11-15', '12345678-9', '1234-123123-123-1', '1.jpg', 1),
 (2, 2, 2, 3, 2010, 2017, 1, '5634-4853', '7384-0012', '1993-08-03', '23790019-2', '3948-687374-641-6', '2.jpg', 1),
 (3, 3, 1, 3, 2010, 2014, 1, '6131-2253', '2819-6873', '1991-07-01', '71775842-4', '8373-317081-933-1', '3.jpg', 1),
 (4, 4, 1, 3, 2013, 2015, 2, '9196-5347', '3146-0814', '1997-11-22', '48702028-9', '1359-447417-994-5', '4.jpg', 1),
@@ -131,10 +131,10 @@ CREATE TABLE `institucion_procedencia` (
 --
 
 INSERT INTO `institucion_procedencia` (`Id_Institucion_Procedencia`, `Institucion_Procedencia`, `Estado`) VALUES
-(1, 'Ricaldone', 1),
-(2, 'ITEXAL', 1),
-(3, 'Maria Matzarelo', 1),
-(4, 'Colegio Evangélico Centroamericano', 1);
+(1, 'Institución 1', 1),
+(2, 'Institución 2', 1),
+(3, 'Institución 3', 1),
+(4, 'Institución 4', 1);
 
 -- --------------------------------------------------------
 
