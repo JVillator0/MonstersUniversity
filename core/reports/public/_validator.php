@@ -7,7 +7,7 @@ function exceptions_error_handler($severity, $message, $filename, $lineno) {
     if(error_reporting() == 0) {  return; }
     if (error_reporting() & $severity) {
         //le decimos a donde redireccionara si algo no funciona
-        $ruta = "../../../pages/dashboard/index.php";
+        $ruta = "../../../pages/public/index.php";
         header("location:" . $ruta);
     }
 }
