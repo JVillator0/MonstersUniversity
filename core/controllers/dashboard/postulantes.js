@@ -15,7 +15,7 @@ function seleccionar(){
                 var tabla_cuerpo_g = "";
                 var fila = "";
                 var reporte = "";
-                //ciclo para armar la tabla
+                //ciclo para armar las filas de la tabla
                 respuesta.registros.forEach(registro => {
                     if(registro.Tel_Movil == null){
                         registro.Tel_Movil = "";

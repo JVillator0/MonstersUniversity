@@ -11,19 +11,8 @@
         <div class="row">
           <a href="#mdl_agregar" data-toggle="modal" class="btn btn-success"><i class="fa fa-plus"></i> Agregar registro </a>
         </div>
-        <div class="row abajo-10px">
-          <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-registros">
-            <thead>
-              <tr>
-                <th class="text-center">Carrera</th>
-                <th class="text-center">Descripción</th>
-                <th class="text-center">Acciones</th>
-              </tr>
-            </thead>
-            <tbody id="tbody_registros">
-              
-            </tbody>
-          </table>
+        <div class="row abajo-10px" id="content_registros">
+          
         <!-- /.col-lg-12 -->
         </div>
       </div>

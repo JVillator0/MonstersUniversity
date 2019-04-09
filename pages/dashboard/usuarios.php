@@ -12,20 +12,8 @@
           <a href="#mdl_agregar" data-toggle="modal" class="btn btn-success"><i class="fa fa-plus"></i> Agregar registro </a>
           <p class="pull-right"> <i class="fa fa-info"></i> El usuario en linea no se<br>visualiza en los registros.</p>  
         </div>
-        <div class="row abajo-10px">
-          <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-registros">
-            <thead>
-              <tr>
-                <th class="text-center">Nombre completo</th>
-                <th class="text-center">Correo</th>
-                <th class="text-center">Alias</th>
-                <th class="text-center">Acciones</th>
-              </tr>
-            </thead>
-            <tbody id="tbody_registros">
-              
-            </tbody>
-          </table>
+        <div class="row abajo-10px" id="content_registros">
+        
         <!-- /.col-lg-12 -->
         </div>
       </div>
