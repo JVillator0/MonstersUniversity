@@ -19,7 +19,7 @@ class PDF extends exFPDF
     {   
         //seteo de propiedades iniciales
         $this->SetFont("helvetica","",10);
-        $this->SetTitle($_POST["titulo_tab"]);
+        $this->SetTitle(utf8_decode($_POST["titulo_tab"]));
         //margenes de 11 milimetros (porque siempre lo instanciamos en mm), osea 1.1cm
         $this->SetMargins(11, 11, 11); 
         //refljando el logo de la universidad

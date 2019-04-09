@@ -19,30 +19,49 @@ function seleccionar(){
         url: "../../core/controllers/scripts/especialidades.php?accion=seleccionar",
         success: function (respuesta) {
             if(respuesta.registros.length > 0){
-                var tabla_cuerpo = "";
-                //ciclo para armar la tabla
+                var tabla_cuerpo = '\
+                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-registros">\
+                    <thead>\
+                        <tr>\
+                            <th class="text-center">Especialidad</th>\
+                            <th class="text-center">Acciones</th>\
+                        </tr>\
+                    </thead>\
+                    <tbody>';
+                //ciclo para armar las filas de la tabla
                 respuesta.registros.forEach(registro => {
                     //reemplazando los " por @& en el string json para solo tener un parametro en el editar
                     var parametros = JSON.stringify(registro).replace(/"/g, "@&");
                     tabla_cuerpo = tabla_cuerpo + '\
-                    <tr>\
-                        <td>'+registro.Especialidad+'</td>\
-                        <td class="text-center">\
-                            <a href="#mdl_editar" data-toggle="modal" class="btn btn-warning" onclick="click_registro(\''+parametros+'\');">\
-                                <i class="fa fa-pencil"></i> Editar\
-                            </a>\
-                            <a class="btn btn-danger" onclick="eliminar('+registro.Id_Especialidad+')">\
-                                <i class="fa fa-trash"></i> Eliminar\
-                            </a>\
-                        </td>\
-                    </tr>';
+                        <tr>\
+                            <td>'+registro.Especialidad+'</td>\
+                            <td class="text-center">\
+                                <a href="#mdl_editar" data-toggle="modal" class="btn btn-warning" onclick="click_registro(\''+parametros+'\');">\
+                                    <i class="fa fa-pencil"></i> Editar\
+                                </a>\
+                                <a class="btn btn-danger" onclick="eliminar('+registro.Id_Especialidad+')">\
+                                    <i class="fa fa-trash"></i> Eliminar\
+                                </a>\
+                            </td>\
+                        </tr>';
                 });
-                //llenando el tbody de la tabla
-                $("#tbody_registros").html(tabla_cuerpo);
+                tabla_cuerpo = tabla_cuerpo + '\
+                    </tbody>\
+                </table>';
+                //llenando el contenedor de la tabla
+                $("#content_registros").html(tabla_cuerpo);
                 //inicializando la datatable
                 window.setTimeout(function(){
                     initTabla("dataTables-registros");
                 }, 100);
+            }else{
+                //mensaje si la consulta devuelve 0 registros
+                var mensaje = '\
+                <div class="alert alert-info">\
+                    <i class="fa fa-info"></i>\
+                    No existen registros.\
+                </div>';
+                $("#content_registros").html(mensaje);
             }
         }, error: function(respuesta){
             console.log("Error:");
